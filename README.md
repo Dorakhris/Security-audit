@@ -1,4 +1,4 @@
-# Internal Security Audit & GRC Assessment: Botium Toys
+# Internal Security Audit For Botium Toys
 
 ## Executive Summary
 This report presents the findings of an internal security audit conducted for Botium Toys, a growing retail business. Using the **NIST Cybersecurity Framework (CSF)** as a guiding structure, this assessment evaluated the company's security posture against key industry regulations, including **PCI DSS**, **GDPR**, and best practices from **ISO 27001**.
