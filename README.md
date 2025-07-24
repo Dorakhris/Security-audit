@@ -1,89 +1,60 @@
-Overview
+# Internal Security Audit & GRC Assessment: Botium Toys
 
-This project demonstrates an internal IT audit for Botium Toys, a small U.S. toy business with growing online operations. Using the NIST Cybersecurity Framework (NIST CSF), I assessed the company’s security posture, identified risks to critical assets, and evaluated compliance with PCI DSS, GDPR, NIST 800-53, and ISO 27001. Tools like Nessus, Splunk, and Wireshark were used to analyze vulnerabilities and logs, with risks mapped to MITRE ATT&CK for Threat Intelligence. This audit showcases my skills in Digital Forensics and Incident Response (DFIR), Security Operations Center (SOC) operations, and Governance, Risk, and Compliance (GRC).
+## Executive Summary
+This report presents the findings of an internal security audit conducted for Botium Toys, a growing retail business. Using the **NIST Cybersecurity Framework (CSF)** as a guiding structure, this assessment evaluated the company's security posture against key industry regulations, including **PCI DSS**, **GDPR**, and best practices from **ISO 27001**.
 
-Date: July 23, 2024
+The audit identified **critical deficiencies** in fundamental security domains, most notably in access control, data protection, and incident preparedness. These gaps present a significant risk of data breaches, financial penalties from non-compliance, and potential business disruption.
 
-Auditor: Dorathy Christopher
+This report provides a prioritized, actionable roadmap for remediation. The recommendations are designed to not only close existing security gaps but also to build a resilient and compliant security program that can support the company's future growth.
 
-## Scope
-This audit encompasses Botium Toys’ entire security program, including all assets (on-premises and employee equipment, management systems, networks), internal processes, and procedures related to controls and compliance best practices.
+**Date:** July 23, 2024
+**Auditor:** Dorathy Christopher
 
-## Goals
-- Assess and classify existing assets to ensure proper management.
-- Complete controls and compliance checklists to evaluate security posture.
-- Recommend controls and compliance best practices to mitigate risks and ensure regulatory adherence. posture.
+---
 
-## Current Assets
-- On-premises equipment: Desktops/laptops, smartphones, remote workstations, surveillance cameras, etc.
-- Employee equipment: End-user devices, headsets, cables, keyboards, mice, docking stations.
-- Storefront products: Toys sold on-site and online, stored in the warehouse
-- Management systems: Accounting, telecommunication, database, security, ecommerce, and inventory management.
-- Network: Internet access, internal network.
-- Data: Customer data, payment information, inventory records
-- Legacy Systems: End-of-life systems requiring human monitoring
+## Risk Assessment Summary
 
-## Risk Assessment
+The audit revealed several high-impact risks stemming from a lack of foundational security controls. The most significant risks are summarized below:
 
-### Risk Description:
-- Inadequate asset management due to unclassified assets.
-- Lack of proper controls (e.g., access restrictions, encryption).
-- Non-compliance with U.S. (PCI DSS) and international (GDPR) regulations.
+| Risk Area | Description | Business Impact | Key Compliance Violation |
+| :--- | :--- | :--- | :--- |
+| **Access Control** | The principle of least privilege is not enforced; all employees have unrestricted access to sensitive customer and payment data. | High risk of insider threat, data misuse, and catastrophic data breach. A single compromised account grants full access. | **PCI DSS** (Req. 7), **GDPR** (Art. 5, 25, 32) |
+| **Data Protection** | Sensitive data (customer PII, payment info) is stored and transmitted without encryption. | High risk of data theft and exposure in the event of a breach, leading to severe financial and reputational damage. | **PCI DSS** (Req. 3, 4), **GDPR** (Art. 32) |
+| **Business Continuity** | No documented Disaster Recovery (DR) or data backup plan exists. | Inability to recover from a ransomware attack, hardware failure, or other disasters, risking prolonged or total business shutdown. | **ISO 27001** (A.12.3.1, A.17.1.2) |
+| **Threat Visibility** | No Intrusion Detection System (IDS) or centralized log monitoring is in place. | The organization is effectively blind to ongoing attacks, such as brute-force attempts or data exfiltration. | **NIST CSF** (DE.AE-2, DE.CM-1) |
 
-### Control Best Practices:
-- Identify: Dedicate resources to classify assets and assess their impact on business continuit
-- Protect: Implement access controls, encryption, and monitoring.
+---
 
-### Risk Score: 8/10
-### Impact: Medium (uncertain asset exposure increases potential for breaches).
-### Compliance Risk: High (lack of controls violates PCI DSS, GDPR requirements).
-### Threat Intelligence: Risks mapped to MITRE ATT&CK (e.g., Tactic TA0003: Persistence via unauthorized access).
+## Key Compliance Gaps
 
-## Controls Assessment Checklist
-
-| Control                     | Status [YES/NO] | Explanation                                                                                  |
-|-----------------------------|-----------------|----------------------------------------------------------------------------------------------|
-| Least Privilege             | No              | Employees have unrestricted access to customer data, increasing breach risk.       |
-| Disaster Recovery Plan      | No              | No plan exists, risking business continuity during incidents.         |
-| Firewall                    | Yes             | Firewall blocks traffic based on defined security rules.                     |
-| Password Policies           | ?               | Weak password requirements (e.g., no complexity rules) risk unauthorized access.               |
-| Antivirus                   | Yes             | Antivirus software is active and monitored regularly..                                        |
-| Backups                     | No              | No backup plan; incremental or full backups needed for data recovery.                 |
-| Encryption                  | No              | No encryption for data at rest or in transit, violating confidentiality.                                |
-| IIntrusion Detection System (IDS)                       | No              | No IDS to detect suspicious activities, increasing undetected intrusion risk..                    |
-| Storefront                  | Yes             | Physical locks are sufficient, though not managed by IT.                                     |
-| CCTV                        | Yes             | CCTV is operational; requires regular maintenance.                                                         |
-| Fire Detection              | Yes             | Fire detection systems are in place; needs maintenance plan.          |
-
-## Compliance Checklist
+The lack of fundamental controls results in direct non-compliance with major regulations.
 
 ### Payment Card Industry Data Security Standard (PCI DSS)
-
-| Best Practice                           | Status [YES/NO] | Explanation                                                                            |
-|-----------------------------------------|-----------------|----------------------------------------------------------------------------------------|
-| Authorized users access customer credit card data | No              | ll employees have access, violating PCI DSS Req. 7 (Restrict Access).                          |
-| Credit card data stored securely                 | No              | Unencrypted storage violates PCI DSS Req. 3 (Protect Stored Data).                                          |
-| Encryption secured                               | No              | No encryption implemented, violating PCI DSS Req. 4 (Encrypt Transmission).                                                   |
+| Requirement | Finding | Status |
+| :--- | :--- | :--- |
+| **Req. 7: Restrict Access** | All employees can access cardholder data. | **FAIL** |
+| **Req. 3: Protect Stored Data** | Cardholder data is stored unencrypted. | **FAIL** |
+| **Req. 4: Encrypt Transmission** | No encryption for data in transit over public networks. | **FAIL** |
 
 ### General Data Protection Regulation (GDPR)
+| Article | Finding | Status |
+| :--- | :--- | :--- |
+| **Art. 32: Security of Processing** | No technical controls (encryption, access control) to secure EU customer data. | **FAIL** |
+| **Art. 5 & 25: Data Minimization** | Unrestricted internal access violates data protection by design and default. | **FAIL** |
 
-| Best Practice                           | Status [YES/NO] | Explanation                                                                            |
-|-----------------------------------------|-----------------|----------------------------------------------------------------------------------------|
-| EU customers’ data secured              | No              | No encryption or access controls, violating GDPR Article 32 (Security).                  |
-| Privacy policies maintained             | Yes             | Enforced by IT and staff, meeting GDPR Article 13 (Information Provision).                                           |
-| User access policies established        | No              | Unrestricted employee access violates GDPR Article 5 (Data Minimization).   |
-| Data integrity maintained               | Yes             | Data integrity is ensured, meeting GDPR Article 5 (Integrity).                                                            |
-| Data available to authorized users      | No              | AAll employees have access, violating GDPR Article 25 (Data Protection by Design).                                       |
+---
 
-## Recommendations
-To enhance Botium Toys’ security posture and ensure compliance with PCI DSS, GDPR, NIST 800-53, and ISO 27001, implement the following:
-- Implement Least Privilege: Restrict access to customer data using Role-Based Access Control (RBAC), ensuring only authorized personnel can view sensitive information, reducing breach risks. Aligns with PCI DSS Requirement 7, GDPR Article 32, and NIST 800-53 AC-2.
-- Develop a Disaster Recovery Plan: Create a documented plan with regular testing to maintain business continuity during incidents like ransomware or hardware failures. Include recovery time objectives (RTOs) and align with NIST CSF Recover and ISO 27001 A.17.1.2.
-- Strengthen Password Policies: Enforce complex passwords (minimum 12 characters, including uppercase, lowercase, numbers, and special symbols) and require updates every 90 days to prevent unauthorized access. Complies with PCI DSS Requirement 8 and NIST 800-53 IA-5.
-- Implement Encryption: Use TLS 1.3 for secure data transmission and AES-256 for data at rest to protect customer and payment information, addressing confidentiality risks. Meets PCI DSS Requirements 3 and 4 and GDPR Article 32.
-- Establish User Access Policies: Deploy Multi-Factor Authentication (MFA) and role-based policies to limit data access to authorized users, preventing insider threats and data leaks. Supports GDPR Article 25 and NIST 800-53 AC-3.
-- Deploy an Intrusion Detection System (IDS): Implement Snort or Zeek to monitor network traffic and alert on suspicious activities, such as unauthorized login attempts, enhancing real-time threat detection. Aligns with NIST CSF Detect and ISO 27001 A.12.4.1.
-- Implement Backups: Schedule daily incremental and weekly full backups with secure offsite storage to ensure data recovery after incidents, minimizing downtime. Complies with NIST CSF Recover and ISO 27001 A.12.3.1.
-- Integrate Threat Intelligence: Deploy Splunk for real-time log monitoring to detect anomalies (e.g., failed logins) and map threats to MITRE ATT&CK tactics, such as T1078 (Valid Accounts) for unauthorized access. Use VirusTotal to validate suspicious IPs from audit logs, strengthening proactive threat hunting.
+## Strategic Roadmap for Remediation
 
-By addressing these areas, Botium Toys can significantly improve their security posture, reduce risks, and ensure compliance with relevant regulations.
+The following recommendations are prioritized to address the most critical risks first. Each recommendation is aligned with business value and specific compliance frameworks.
+
+| Priority | Recommendation | Justification & Business Value | Framework Alignment |
+| :--- | :--- | :--- | :--- |
+| **CRITICAL** | **Implement Least Privilege & RBAC** | Immediately reduces the attack surface by ensuring employees can only access data essential for their roles. This is the single most effective control to prevent a widespread data breach from a compromised account. | **PCI DSS:** R7 <br> **GDPR:** Art. 32 <br> **NIST CSF:** PR.AC-4 |
+| **CRITICAL** | **Enforce Data Encryption** | Deploy **AES-256** for data-at-rest and **TLS 1.3** for data-in-transit. This protects data confidentiality even if storage is compromised and is a non-negotiable requirement for PCI DSS and GDPR compliance. | **PCI DSS:** R3, R4 <br> **GDPR:** Art. 32 <br> **ISO 27001:** A.10.1.1 |
+| **HIGH** | **Develop a Backup & Disaster Recovery Plan** | Create a "3-2-1" backup strategy (3 copies, 2 media, 1 offsite) and a documented DR plan. This ensures the business can recover from a catastrophic event like ransomware, minimizing downtime and financial loss. | **NIST CSF:** PR.IP-4, RS.RP-1 <br> **ISO 27001:** A.12.3.1, A.17.1.2 |
+| **HIGH** | **Strengthen Authentication Policies** | Enforce a strong password policy (12+ characters, complexity) and deploy **Multi-Factor Authentication (MFA)** for all remote access and access to critical systems. This hardens initial access points against credential theft. | **NIST CSF:** PR.AC-1 <br> **PCI DSS:** R8 |
+| **MEDIUM** | **Deploy Threat Detection & Monitoring Tools** | Implement a network **IDS (e.g., Snort)** and centralize logging with a **SIEM (e.g., Splunk)**. This provides critical visibility into network traffic and allows for the detection of threats mapped to **MITRE ATT&CK** TTPs. | **NIST CSF:** DE.CM-1, DE.AE-2 <br> **ISO 27001:** A.12.4.1 |
+| **MEDIUM** | **Establish a Vulnerability Management Program** | Conduct regular, authenticated vulnerability scans using a tool like **Nessus**. Create a process to prioritize and remediate identified vulnerabilities to systematically reduce the attack surface over time. | **NIST CSF:** ID.RA-1 <br> **PCI DSS:** R11.2 |
+
+By implementing this strategic roadmap, Botium Toys can transform its security program from a high-risk liability into a resilient business enabler.
