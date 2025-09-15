@@ -1,5 +1,4 @@
-# Project Title
-Internal Security & Compliance Audit for Botium Toys
+# Internal Security & Compliance Audit for Botium Toys
 
 
 
